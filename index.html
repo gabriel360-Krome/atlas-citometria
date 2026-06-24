@@ -1,44 +1,127 @@
 <!DOCTYPE html>
-
 <html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Atlas Visual de Citometría de Flujo</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Atlas Citometría de Flujo</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #111;
+            color: white;
+            text-align: center;
+        }
+
+        header {
+            padding: 20px;
+            background: #1c1c1c;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            padding: 20px;
+        }
+
+        .thumb {
+            width: 100%;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: transform 0.2s;
+        }
+
+        .thumb:hover {
+            transform: scale(1.03);
+        }
+
+        #viewer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: black;
+            display: none;
+            z-index: 999;
+        }
+
+        #closeBtn {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            z-index: 1000;
+            padding: 10px 15px;
+            background: red;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
 </head>
 
 <body>
 
-```
-<h1>Atlas Visual de Citometría de Flujo</h1>
+<header>
+    <h1>Atlas de Citometría de Flujo</h1>
+    <p>Haz clic en una figura para hacer zoom</p>
+</header>
 
-<p>Manual interactivo de procedimientos de laboratorio</p>
+<div class="grid">
 
-<div class="gallery">
+    <img class="thumb" src="images/figura1.png" onclick="openViewer('images/figura1.png')">
+    <img class="thumb" src="images/figura2.png" onclick="openViewer('images/figura2.png')">
+    <img class="thumb" src="images/figura3.png" onclick="openViewer('images/figura3.png')">
+    <img class="thumb" src="images/figura4.png" onclick="openViewer('images/figura4.png')">
+    <img class="thumb" src="images/figura5.png" onclick="openViewer('images/figura5.png')">
+    <img class="thumb" src="images/figura6.png" onclick="openViewer('images/figura6.png')">
+    <img class="thumb" src="images/figura7.png" onclick="openViewer('images/figura7.png')">
+    <img class="thumb" src="images/figura8.png" onclick="openViewer('images/figura8.png')">
+    <img class="thumb" src="images/figura9.png" onclick="openViewer('images/figura9.png')">
+    <img class="thumb" src="images/figura10.png" onclick="openViewer('images/figura10.png')">
+    <img class="thumb" src="images/figura11.png" onclick="openViewer('images/figura11.png')">
+    <img class="thumb" src="images/figura12.png" onclick="openViewer('images/figura12.png')">
+    <img class="thumb" src="images/figura13.png" onclick="openViewer('images/figura13.png')">
+    <img class="thumb" src="images/figura14.png" onclick="openViewer('images/figura14.png')">
+    <img class="thumb" src="images/figura15.png" onclick="openViewer('images/figura15.png')">
+    <img class="thumb" src="images/figura16.png" onclick="openViewer('images/figura16.png')">
 
-    <img src="images/figura1.png" alt="Figura 1">
-    <img src="images/figura2.png" alt="Figura 2">
-    <img src="images/figura3.png" alt="Figura 3">
-    <img src="images/figura4.png" alt="Figura 4">
-    <img src="images/figura5.png" alt="Figura 5">
-    <img src="images/figura6.png" alt="Figura 6">
-    <img src="images/figura7.png" alt="Figura 7">
-    <img src="images/figura8.png" alt="Figura 8">
-    <img src="images/figura9.png" alt="Figura 9">
-    <img src="images/figura10.png" alt="Figura 10">
-    <img src="images/figura11.png" alt="Figura 11">
-    <img src="images/figura12.png" alt="Figura 12">
-    <img src="images/figura13.png" alt="Figura 13">
-    <img src="images/figura14.png" alt="Figura 14">
-    <img src="images/figura15.png" alt="Figura 15">
-    <img src="images/figura16.png" alt="Figura 16">
-
-    
 </div>
-```
+
+<div id="viewer">
+    <button id="closeBtn" onclick="closeViewer()">Cerrar</button>
+    <div id="openseadragon1" style="width:100%; height:100%;"></div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/openseadragon/4.1.1/openseadragon.min.js"></script>
+
+<script>
+    let viewer;
+
+    function openViewer(image) {
+        document.getElementById("viewer").style.display = "block";
+
+        viewer = OpenSeadragon({
+            id: "openseadragon1",
+            prefixUrl: "https://cdnjs.cloudflare.com/ajax/libs/openseadragon/4.1.1/images/",
+            tileSources: {
+                type: "image",
+                url: image
+            }
+        });
+    }
+
+    function closeViewer() {
+        document.getElementById("viewer").style.display = "none";
+        if (viewer) {
+            viewer.destroy();
+            viewer = null;
+        }
+    }
+</script>
 
 </body>
-
 </html>
